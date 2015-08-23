@@ -1,0 +1,23 @@
+{
+  "name": "star-it",
+  "version": "1.0.0",
+  "description": "A library of JavaScript functions that take an iterable and mimic the functionality of many Array methods",
+  "main": "star-it.js",
+  "scripts": {
+    "clean": "rm -rf build",
+    "test": "node_modules/babel/bin/babel.js src --out-dir build; node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json"
+  },
+  "keywords": [
+    "JavaScript",
+    "ES6",
+    "iterable",
+    "iterator",
+    "generator"
+  ],
+  "author": "R. Mark Volkmann",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "5.8.21",
+    "jasmine": "2.3.2"
+  }
+}
