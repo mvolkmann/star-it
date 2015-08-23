@@ -20,13 +20,6 @@ function assertIsIterator(value) {
   }
 }
 
-/*
-function getFunction(obj, fnName) {
-  const fn = obj[fnName];
-  return typeof fn === 'function' ? fn : undefined;
-}
-*/
-
 function every(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
@@ -44,6 +37,15 @@ function* filter(obj, predicate) {
   }
 }
 
+function find(obj, predicate) {
+  assertIsIterable(obj);
+  assertIsFunction(predicate);
+  for (let element of obj) {
+    if (predicate(element)) return element;
+  }
+  return undefined;
+}
+
 function findIndex(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
@@ -53,15 +55,6 @@ function findIndex(obj, predicate) {
     index++;
   }
   return -1;
-}
-
-function find(obj, predicate) {
-  assertIsIterable(obj);
-  assertIsFunction(predicate);
-  for (let element of obj) {
-    if (predicate(element)) return element;
-  }
-  return undefined;
 }
 
 function forEach(obj, fn) {
@@ -139,6 +132,6 @@ function some(obj, predicate) {
 }
 
 module.exports = {
-  every, filter, findIndex, find, forEach, includes,
+  every, filter, find, findIndex, forEach, includes,
   indexOf, lastIndexOf, map, reduce, some
 };
