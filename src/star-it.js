@@ -19,7 +19,7 @@ function assertIsIterable(value) {
     throw new Error('expected an iterable, but got', value);
   }
 
-  const iterator = iteratorFn.apply(value);
+  const iterator = iteratorFn.call(value);
   assertIsIterator(iterator);
 }
 
