@@ -1,3 +1,4 @@
+/*global describe: false, expect: false, it: false */
 require('babel/polyfill');
 
 const starIt = require('./star-it');

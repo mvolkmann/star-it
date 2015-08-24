@@ -6,13 +6,6 @@ function assertIsFunction(value) {
   }
 }
 
-function assertIsIterable(value) {
-  const iteratorFn = value[Symbol.iterator];
-  if (!iteratorFn || typeof iteratorFn !== 'function') {
-    throw new Error('expected an iterable, but got', value);
-  }
-}
-
 function assertIsIterator(value) {
   const nextFn = value.next;
   if (!nextFn || typeof nextFn !== 'function') {
@@ -20,10 +13,20 @@ function assertIsIterator(value) {
   }
 }
 
+function assertIsIterable(value) {
+  const iteratorFn = value[Symbol.iterator];
+  if (!iteratorFn || typeof iteratorFn !== 'function') {
+    throw new Error('expected an iterable, but got', value);
+  }
+
+  const iterator = iteratorFn.apply(value);
+  assertIsIterator(iterator);
+}
+
 function every(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
-  for (let element of obj) {
+  for (const element of obj) {
     if (!predicate(element)) return false;
   }
   return true;
@@ -32,7 +35,7 @@ function every(obj, predicate) {
 function* filter(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
-  for (let element of obj) {
+  for (const element of obj) {
     if (predicate(element)) yield element;
   }
 }
@@ -40,7 +43,7 @@ function* filter(obj, predicate) {
 function find(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
-  for (let element of obj) {
+  for (const element of obj) {
     if (predicate(element)) return element;
   }
   return undefined;
@@ -50,7 +53,7 @@ function findIndex(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
   let index = 0;
-  for (let element of obj) {
+  for (const element of obj) {
     if (predicate(element)) return index;
     index++;
   }
@@ -60,14 +63,14 @@ function findIndex(obj, predicate) {
 function forEach(obj, fn) {
   assertIsIterable(obj);
   assertIsFunction(fn);
-  for (let element of obj) {
+  for (const element of obj) {
     fn(element);
   }
 }
 
 function includes(obj, value) {
   assertIsIterable(obj);
-  for (let element of obj) {
+  for (const element of obj) {
     if (element === value) return true;
   }
   return false;
@@ -76,7 +79,7 @@ function includes(obj, value) {
 function indexOf(obj, value) {
   assertIsIterable(obj);
   let index = 0;
-  for (let element of obj) {
+  for (const element of obj) {
     if (element === value) return index;
     index++;
   }
@@ -86,7 +89,7 @@ function indexOf(obj, value) {
 function lastIndexOf(obj, value) {
   assertIsIterable(obj);
   let index = 0, lastIndex = -1;
-  for (let element of obj) {
+  for (const element of obj) {
     if (element === value) lastIndex = index;
     index++;
   }
@@ -96,7 +99,7 @@ function lastIndexOf(obj, value) {
 function* map(obj, fn) {
   assertIsIterable(obj);
   assertIsFunction(fn);
-  for (let element of obj) {
+  for (const element of obj) {
     yield fn(element);
   }
 }
@@ -104,7 +107,7 @@ function* map(obj, fn) {
 function reduce(obj, fn, initial) {
   assertIsIterable(obj);
   assertIsFunction(fn);
-  let it = obj[Symbol.iterator]();
+  const it = obj[Symbol.iterator]();
 
   let done = false, value;
   if (initial === undefined) {
@@ -125,7 +128,7 @@ function reduce(obj, fn, initial) {
 function some(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
-  for (let element of obj) {
+  for (const element of obj) {
     if (predicate(element)) return true;
   }
   return false;
