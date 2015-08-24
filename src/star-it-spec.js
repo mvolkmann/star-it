@@ -30,7 +30,7 @@ class TreeNode {
         yield* child;
       }
     } else { // breadth-first
-      let queue = this.children, newQueue;
+      let newQueue, queue = this.children;
       while (queue.length) {
         // Yield all nodes at current level.
         yield* queue;
