@@ -20,18 +20,27 @@ class TreeNode {
     this.children.push(...children);
   }
 
-  // Traverses all descendants of this TreeNode.
-  // Deep-first if this.depthFirst = true (the default);
-  // breadth-first otherwise.
+  // Traverses all descendants of this TreeNode
+  // deep-first if this.depthFirst = true (the default)
+  // or breadth-first otherwise.
   *[Symbol.iterator]() {
-    for (const child of this.children) {
-      yield child;
-      if (this.depthFirst) yield* child;
-    }
-
-    if (!this.depthFirst) {
+    if (this.depthFirst) {
       for (const child of this.children) {
+        yield child;
         yield* child;
+      }
+    } else { // breadth-first
+      let queue = this.children, newQueue;
+      while (queue.length) {
+        // Yield all nodes at current level.
+        yield* queue;
+
+        // Get all children one level down.
+        newQueue = [];
+        for (const child of queue) {
+          newQueue.push(...child.children);
+        }
+        queue = newQueue;
       }
     }
   }
