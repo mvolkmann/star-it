@@ -19,6 +19,7 @@ function assertIsIterable(value) {
     throw new Error('expected an iterable, but got', value);
   }
 
+  // Obtain an iterator from the iterable.
   const iterator = iteratorFn.call(value);
   assertIsIterator(iterator);
 }
@@ -125,6 +126,25 @@ function reduce(obj, fn, initial) {
   return result;
 }
 
+// Skips the first n values of an iterable and yields the rest.
+function* skip(obj, n) {
+  assertIsIterable(obj);
+  const iterator = obj[Symbol.iterator]();
+  let result;
+
+  // Skip the first n values.
+  for (let i = 0; i <= n; i++) {
+    result = iterator.next();
+    if (result.done) return;
+  }
+
+  // Yield the rest of the values.
+  while (!result.done) {
+    yield result.value;
+    result = iterator.next();
+  }
+}
+
 function some(obj, predicate) {
   assertIsIterable(obj);
   assertIsFunction(predicate);
@@ -134,7 +154,17 @@ function some(obj, predicate) {
   return false;
 }
 
+// Yields only the first n values of an iterable.
+function* take(obj, n) {
+  assertIsIterable(obj);
+  const iterator = obj[Symbol.iterator]();
+  while (n > 0) {
+    yield iterator.next().value;
+    n--;
+  }
+}
+
 module.exports = {
   every, filter, find, findIndex, forEach, includes,
-  indexOf, lastIndexOf, map, reduce, some
+  indexOf, lastIndexOf, map, reduce, skip, some, take
 };

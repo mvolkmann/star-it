@@ -1,4 +1,4 @@
-/*global describe: false, expect: false, it: false */
+/* global describe, expect, fit, it */
 require('babel/polyfill');
 
 const starIt = require('./star-it');
@@ -27,7 +27,7 @@ class TreeNode {
     if (this.depthFirst) {
       for (const child of this.children) {
         yield child;
-        yield* child;
+        yield* child; // yields all of its children
       }
     } else { // breadth-first
       let newQueue, queue = this.children;
@@ -50,10 +50,6 @@ describe('star-it', () => {
 
   it('supports every', () => {
     expect(starIt.every(arr, isOdd)).toBeFalsy();
-  });
-
-  it('supports some', () => {
-    expect(starIt.some(arr, isOdd)).toBeTruthy();
   });
 
   it('supports filter', () => {
@@ -95,12 +91,6 @@ describe('star-it', () => {
     expect(starIt.lastIndexOf(arr, 4)).toBe(-1);
   });
 
-  it('supports reduce', () => {
-    expect(starIt.reduce(arr, add)).toBe(26);
-    expect(starIt.reduce([19], add)).toBe(19);
-    expect(starIt.reduce([], add, 0)).toBe(0);
-  });
-
   it('supports map', () => {
     let iterable = starIt.map(arr, isOdd);
     let result = [...iterable];
@@ -110,6 +100,29 @@ describe('star-it', () => {
     iterable = starIt.map([], isOdd);
     result = [...iterable];
     expect(result).toEqual([]);
+  });
+
+  it('supports reduce', () => {
+    expect(starIt.reduce(arr, add)).toBe(26);
+    expect(starIt.reduce([19], add)).toBe(19);
+    expect(starIt.reduce([], add, 0)).toBe(0);
+  });
+
+  it('supports skip', () => {
+    const gen = starIt.skip(arr, 2);
+    expect(gen.next().value).toBe(5);
+    expect(gen.next().value).toBe(6);
+  });
+
+  it('supports some', () => {
+    expect(starIt.some(arr, isOdd)).toBeTruthy();
+  });
+
+  it('supports take', () => {
+    const gen = starIt.take(arr, 2);
+    expect(gen.next().value).toBe(1);
+    expect(gen.next().value).toBe(3);
+    expect(gen.next().value).toBe(undefined);
   });
 
   it('handles tree', () => {

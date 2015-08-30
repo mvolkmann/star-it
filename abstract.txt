@@ -1,0 +1,42 @@
+Title: JavaScript Iterators and Generators: the JIG is up
+
+Description:
+ES 2015 added many new features to JavaScript. Some are easy to grasp, while others, like iterators and generators, require more effort. This talk will provide everything you need to know to begin using them effectively. We will also walk through many examples of custom implementations.
+
+Topic: "Pure Code and JavaScript"
+
+Session Type: 90 or 30 minutes (can adjust to either)
+
+Abstract:
+
+Iterators are objects that are used to visit elements in a sequence. Iterables are objects that return iterators. Several standard JavaScript classes create objects that are iterable (Array, Set, Map, and String). These objects also have methods that return iterables. After discussing these topics, we will walk through examples of implementing custom iterables and iterators.
+
+The new for-of loop, spread operator, and positional destructuring all operate on iterables. Also, some constructors and methods of provided classes take iterables as arguments.
+
+Generators are a special kind of iterable. Generator functions are used to create generators. Generator objects have the methods next, return, and throw for interacting with a generator from outside its definition. After discussing these topics, we will walk through examples of implementing custom generators, including a TreeNode class that supports iterating through descendant nodes in
+breadth-first or depth-first order.
+
+The Array class has many methods that test, find, and process elements. These include every, filter, find, findIndex, forEach, includes, indexOf, lastIndexOf, map, reduce, and some. It would be convenient to have similar functions that operate on iterables. Implementing these serves as a nice introduction to using iterables, iterators, and generators. I have implemented a library of functions to do just this! We will walk through the code for each of these and see that each if fairly short and simple to understand. Each method has associated test assertions to demonstrate it in action.
+
+The talk concludes with a summary of the benefits of using iterables, iterators, and generators.
+
+Takeaway:
+Attendees will become comfortable using iterables, iterators, and generators and they will know how to get started creating custom implementations.
+
+Additional Tags:
+JavaScript, ES 2015, ES6, iterable, iterator, generator
+
+Audience Level: Intermediate
+
+Prerequisite Knowledge: basic JavaScript
+
+Tutorial Requirements:
+If attendees wish to follow along (optional), they should have a laptop with git, Jasmine, and Babel installed.
+
+Video URL: https://www.youtube.com/watch?v=13kawyfG_mc&feature=youtu.be
+
+Travel Note:
+Unfortunately my employer would not pay for me to attend.
+
+Additional Notes:
+My talk can easily be adapted to 30 or 90 minutes, so please consider it for either.
