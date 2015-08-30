@@ -35,8 +35,5 @@ If attendees wish to follow along (optional), they should have a laptop with git
 
 Video URL: https://www.youtube.com/watch?v=13kawyfG_mc&feature=youtu.be
 
-Travel Note:
-Unfortunately my employer would not pay for me to attend.
-
 Additional Notes:
 My talk can easily be adapted to 30 or 90 minutes, so please consider it for either.
