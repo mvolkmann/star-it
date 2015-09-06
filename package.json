@@ -7,7 +7,7 @@
   "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf build",
-    "compile": "babel -d lib/ src"
+    "compile": "babel -d lib/ src",
     "prepublish": "npm run compile",
     "test": "node_modules/babel/bin/babel.js lib --out-dir build; node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json"
   },
